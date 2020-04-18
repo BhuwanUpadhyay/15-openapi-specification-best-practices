@@ -34,3 +34,4 @@ node_modules
 docs/node
 *.xml.next
 *.xml.tag
+out
