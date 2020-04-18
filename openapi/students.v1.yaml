@@ -1,0 +1,51 @@
+openapi: 3.0.0
+info:
+  title: students-api
+  version: '1.0'
+  description: Students API
+  contact:
+    name: Bhuwan Prasad Upadhyay
+    email: bot.bhuwan@gmail.com
+    url: 'https://bhuwanupadhyay.github.io/'
+  license:
+    name: Apache 2.0
+    url: 'https://github.com/BhuwanUpadhyay/factory-parent/blob/master/LICENSE'
+servers:
+  - url: 'http://localhost:8080'
+    description: Local Students API Server
+paths:
+  /students:
+    get:
+      summary: Get students with pagination
+      tags:
+        - view
+      operationId: get-students
+      responses:
+        '200':
+          description: Students Page Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudentListPage'
+      description: Get students with pagination
+components:
+  schemas:
+    StudentResource:
+      title: Student Resource
+      type: object
+      properties:
+        name:
+          type: string
+    StudentListPage:
+      title: Students Page
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/StudentResource'
+tags:
+  - name: view
+    description: View Scope API
+  - name: write
+    description: Write Scope API
