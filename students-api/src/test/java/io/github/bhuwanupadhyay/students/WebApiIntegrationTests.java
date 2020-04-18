@@ -11,7 +11,6 @@ import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.data.r2dbc.core.DatabaseClient;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
@@ -26,20 +25,6 @@ class WebApiIntegrationTests {
 			.withDatabaseName("students").withUsername("repl_user")
 			.withPassword("repl_password");
 
-	static class Initializer
-			implements ApplicationContextInitializer<ConfigurableApplicationContext> {
-
-		public void initialize(
-				ConfigurableApplicationContext configurableApplicationContext) {
-			TestPropertyValues
-					.of("spring.datasource.url=" + SQL_CONTAINER.getJdbcUrl(),
-							"spring.datasource.username=" + SQL_CONTAINER.getUsername(),
-							"spring.datasource.password=" + SQL_CONTAINER.getPassword())
-					.applyTo(configurableApplicationContext.getEnvironment());
-		}
-
-	}
-
 	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 	@Autowired
 	private WebTestClient client;
@@ -49,6 +34,22 @@ class WebApiIntegrationTests {
 
 	@Test
 	void name() {
+	}
+
+	static class Initializer
+			implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+
+		public void initialize(
+				ConfigurableApplicationContext configurableApplicationContext) {
+			TestPropertyValues
+					.of("spring.r2dbc.url="
+							+ SQL_CONTAINER.getJdbcUrl().replaceFirst("jdbc", "r2dbc"),
+							"spring.r2dbc.username=" + SQL_CONTAINER.getUsername(),
+							"spring.r2dbc.password=" + SQL_CONTAINER.getPassword(),
+							"spring.r2dbc.initialization-mode=always")
+					.applyTo(configurableApplicationContext.getEnvironment());
+		}
+
 	}
 
 }
