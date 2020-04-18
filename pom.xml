@@ -9,7 +9,6 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>out/spring-boot</module>
 	</modules>
 
 	<parent>
