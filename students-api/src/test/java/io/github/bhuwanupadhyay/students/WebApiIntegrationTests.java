@@ -1,14 +1,19 @@
 package io.github.bhuwanupadhyay.students;
 
+import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.util.TestPropertyValues;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.data.r2dbc.core.DatabaseClient;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.web.reactive.server.WebTestClient;
 
 @SpringBootTest(classes = App.class,
 		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -33,6 +38,17 @@ class WebApiIntegrationTests {
 					.applyTo(configurableApplicationContext.getEnvironment());
 		}
 
+	}
+
+	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+	@Autowired
+	private WebTestClient client;
+
+	@LocalServerPort
+	private int serverPort;
+
+	@Test
+	void name() {
 	}
 
 }

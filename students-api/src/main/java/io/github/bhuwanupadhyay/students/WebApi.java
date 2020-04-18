@@ -30,6 +30,12 @@ public class WebApi implements StudentsApi {
 
 	private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
+	private final StudentRepository studentRepository;
+
+	public WebApi(StudentRepository studentRepository) {
+		this.studentRepository = studentRepository;
+	}
+
 	@Override
 	public Mono<ResponseEntity<StudentPageList>> getStudents(ServerWebExchange exchange) {
 		return null;

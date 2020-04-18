@@ -1,0 +1,10 @@
+# Insert Students
+databaseChangeLog:
+  - changeSet:
+      id: insert-students
+      author: developerbhuwan
+      changes:
+        - sql:
+            sql: INSERT INTO student (std_id, name, status) values ('std01', 'Apple Gamma', 'RUNNING');
+        - sql:
+            sql: INSERT INTO student (std_id, name, status) values ('std02', 'Gamma Apple', 'PASSED');
