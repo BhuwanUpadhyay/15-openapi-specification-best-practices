@@ -38,6 +38,7 @@ public class WebApi implements StudentsApi {
 
 	@Override
 	public Mono<ResponseEntity<StudentPageList>> getStudents(ServerWebExchange exchange) {
+		Mono<Long> count = studentRepository.count();
 		return null;
 	}
 

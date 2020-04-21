@@ -51,6 +51,8 @@ components:
       properties:
         name:
           type: string
+        status:
+          type: string
         birthDate:
           type: string
           format: date
